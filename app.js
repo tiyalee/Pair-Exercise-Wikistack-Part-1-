@@ -19,9 +19,14 @@ app.use(express.urlencoded({ extended: false }));
 app.use("/wiki", wiki);
 app.use("/users", users);
 
-app.get("/", (req, res) => {
-  res.send(layout(''));
+app.get("/", (req, res,next) => {
+  try{
+  res.redirect('/wiki');
+  }catch(err){
+    throw err;
+  }
 })
+
 
 const init = async () => {
   await db.sync({ force: true });
